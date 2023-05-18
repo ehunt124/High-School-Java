@@ -1,0 +1,57 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+
+import javax.swing.JFrame;
+
+public class AI_Main extends JFrame implements Runnable
+{
+	Rectangle player=new Rectangle(50,50,20,20);
+	static Rectangle object=new Rectangle(375,375,25,25);
+	private Image dbImage;
+	private Graphics dbg;
+	int xDirection,yDirection;
+	public AI_Main()
+	{
+		setSize(400,300);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+		addKeyListener(new AL());
+	}
+	@Override
+	public void paint(Graphics g)
+	{
+		dbImage=createImage(getWidth(),getHeight());
+		dbg=dbImage.getGraphics();
+		paintComponent(dbg);
+		g.drawImage(dbImage,0,0,this);
+	}
+	public void paintComponent(Graphics g)
+	{
+		g.setColor(Color.RED);
+		g.fillRect(player.x, player.y, player.width, player.height);
+		repaint();
+	}
+	public static void main(String[] args)
+	{
+		
+	}
+	@Override
+	public void run() 
+	{
+		try
+		{
+			while(true)
+			{
+				move();
+				Thread.sleep(5);
+			}
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+	}
+}

@@ -1,0 +1,58 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.Random;
+
+public class AI implements Runnable
+{
+	Rectangle AI;
+	int xDir,yDir;
+	public AI(Rectangle r)
+	{
+		AI=r;
+	}
+	public void draw(Graphics g)
+	{
+		g.setColor(Color.BLUE);
+		if(AI!=null)
+			g.fillRect(AI.x, AI.y, AI.width, AI.height);
+	}
+	public int chooseRandomDirection()
+	{
+		Random r=new Random();
+		int [] randDirections=new int[3];
+		randDirections[0]=0;
+		randDirections[1]=1;
+		randDirections[2]=-1;
+		int randChoice=r.nextInt(3);
+		return randDirections[randChoice];
+	}
+	public void setXDirection(int dir)
+	{
+		xDir=dir;
+	}
+	public void setYDirection(int dir)
+	{
+		yDir=dir;
+	}
+	public void move()
+	{
+		AI.x+=xDir;
+		AI.y+=yDir;
+	}
+	@Override
+	public void run() 
+	{
+		try
+		{
+			while(true)
+			{
+				
+			}
+		}
+		catch(Exception ex)
+		{
+			System.err.println(ex.getMessage());
+		}
+	}
+}

@@ -1,0 +1,65 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
+
+public class BallMain extends JFrame
+{
+	Image dbImage;
+	Graphics dbg;
+	Rectangle startButton=new Rectangle(150,100,100,25);
+	Rectangle quitButton=new Rectangle(150,150,100,25);
+	static Ball b=new Ball(193,143);
+	public BallMain()
+	{
+		this.setTitle("Pong Game");
+		this.setSize(400,300);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+		this.setBackground(Color.DARK_GRAY);
+		this.addKeyListener(new KeyHandler());
+		this.addMouseListener(new MouseHandler());
+		this.addMouseMotionListener(new MouseHandler());
+	}
+	public static void main(String[] args)
+	{
+		BallMain m=new BallMain();
+	}
+	@Override
+	public void paint(Graphics g)
+	{
+		dbImage=createImage(getWidth(),getHeight());
+		dbg=dbImage.getGraphics();
+		draw(dbg);
+		g.drawImage(dbImage,0,0,this);
+	}
+	public void draw(Graphics g)
+	{
+		b.draw(g);
+		b.p1.draw(g);
+		b.p2.draw(g);
+		g.setColor(Color.WHITE);
+		g.drawString(""+b.p1Score,15,50);
+		g.drawString(""+b.p2Score,370,50);
+		repaint();
+	}
+	public class KeyHandler extends KeyAdapter
+	{
+		@Override
+		public void keyPressed(KeyEvent e)
+		{
+			b.p1.keyPressed(e);
+			b.p2.keyPressed(e);
+		}
+		@Override
+		public void keyReleased(KeyEvent e)
+		{
+			b.p1.keyReleased(e);
+			b.p2.keyReleased(e);
+		}
+	}
+}
